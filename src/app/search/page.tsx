@@ -32,7 +32,7 @@ export default async function SearchPage({
   });
 
   if (products.length === 0) {
-    return <div className="text-center">No products found</div>;
+    return <div className="text-center">Nenhum produto encontrado</div>;
   }
 
   return (
