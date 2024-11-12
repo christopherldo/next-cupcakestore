@@ -38,7 +38,7 @@ export default function PaginationBar({
           </Link>
         )}
         <button className="btn join-item pointer-events-none">
-          Page {currentPage}
+          Página {currentPage}
         </button>
         {currentPage < totalPages && (
           <Link href={`?page=${currentPage + 1}`} className="btn join-item">
