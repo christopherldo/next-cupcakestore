@@ -23,6 +23,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: "Imagem promocional da Doce Mania - Loja de Cupcakes",
       },
+      {
+        url: "./opengraph-image-2.png",
+        width: 800,
+        height: 800,
+        alt: "Imagem promocional da Doce Mania - Loja de Cupcakes",
+      },
     ],
     locale: "pt-BR",
     type: "website",
