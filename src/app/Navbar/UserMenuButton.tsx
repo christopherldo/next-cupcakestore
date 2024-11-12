@@ -53,15 +53,15 @@ export default function UserMenuButton({
             <>
               {isAllowedToCreate && (
                 <Link href="/add-product">
-                  <button>Add Product</button>
+                  <button>Adicionar Produto</button>
                 </Link>
               )}
               <button onClick={() => signOut({ callbackUrl: "/" })}>
-                Sign Out
+                Sair
               </button>
             </>
           ) : (
-            <button onClick={() => signIn()}>Sign In</button>
+            <button onClick={() => signIn()}>Entrar</button>
           )}
         </li>
       </ul>

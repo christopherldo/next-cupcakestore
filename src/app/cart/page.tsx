@@ -4,7 +4,7 @@ import { setProductQuantity } from "./actions";
 import { formatPrice } from "@/lib/format";
 
 export const metadata = {
-  title: "Your Cart - Flowmazon",
+  title: "Seu Carrinho - Doce Mania",
 };
 
 export default async function CartPage() {
@@ -12,7 +12,7 @@ export default async function CartPage() {
 
   return (
     <div className="flex w-full flex-col justify-center">
-      <h1 className="mb-6 text-3xl font-bold">Shopping Cart</h1>
+      <h1 className="mb-6 text-3xl font-bold">Carrinho</h1>
       {cart?.items.map((cartItem) => (
         <CartEntry
           cartItem={cartItem}
@@ -20,16 +20,16 @@ export default async function CartPage() {
           setProductQuantity={setProductQuantity}
         />
       ))}
-      {!cart?.items.length && <p>Your cart is empty.</p>}
+      {!cart?.items.length && <p>Seu carrinho está vazio.</p>}
       <div className="flex flex-col items-end sm:items-center">
         <p className="mb-3 font-bold">
           Total: {formatPrice(cart?.subtotal || 0)}
         </p>
         <button
           className="btn btn-primary sm:w-[200px]"
-          disabled={cart?.subtotal === 0 || cart?.items.length === 0}
+          disabled={!cart?.subtotal || !cart?.items.length}
         >
-          Checkout
+          Finalizar a Compra
         </button>
       </div>
     </div>

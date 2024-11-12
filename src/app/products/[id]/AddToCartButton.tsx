@@ -32,7 +32,7 @@ export default function AddToCartButton({
         }`}
         onClick={handleClickOnAddToCart}
       >
-        Add to Cart
+        Adicionar ao Carrinho
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -50,7 +50,7 @@ export default function AddToCartButton({
       </button>
       {isPending && <span className="loading loading-spinner loading-md" />}
       {!isPending && success && (
-        <span className="text-success">Added to Cart.</span>
+        <span className="text-success">Adicionado ao Carrinho.</span>
       )}
     </div>
   );

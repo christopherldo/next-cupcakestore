@@ -12,7 +12,7 @@ export function generateMetadata({
   searchParams: { query },
 }: SearchPageProps): Metadata {
   return {
-    title: `Search: ${query} - Flowmazon`,
+    title: `Pesquisa: ${query} - Doce Mania`,
   };
 }
 

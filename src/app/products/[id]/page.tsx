@@ -31,7 +31,7 @@ export async function generateMetadata({
   const product = await getProduct(id);
 
   return {
-    title: `${product.name} - Flowmazon`,
+    title: `${product.name} - Doce Mania`,
     description: product.description,
     openGraph: {
       images: [

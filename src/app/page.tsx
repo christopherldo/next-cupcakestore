@@ -50,7 +50,7 @@ export default async function Home({
                 href={`/products/${products[0].id}`}
                 className="btn btn-primary"
               >
-                Check it out
+                Saiba mais
               </Link>
             </div>
           </div>

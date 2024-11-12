@@ -31,9 +31,9 @@ export default function CartEntry({
           <Link href={`/products/${product.id}`} className="font-bold">
             {product.name}
           </Link>
-          <div className="mt-3">Price: {formatPrice(product.price)}</div>
+          <div className="mt-3">Preço: {formatPrice(product.price)}</div>
           <div className="my-1 flex items-center gap-2">
-            Quantity:
+            Quantidade:
             <select
               className={"select select-bordered w-full max-w-[80px]"}
               defaultValue={quantity}
@@ -49,7 +49,7 @@ export default function CartEntry({
               {Array.from(Array(100).keys()).map((item) => {
                 return item === 0 ? (
                   <option value={item} key={item}>
-                    {item} (Remove)
+                    {item} (Remover)
                   </option>
                 ) : (
                   <option value={item} key={item}>

@@ -7,7 +7,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getAllowedUsers } from "../api/auth/allowedUsers";
 
 export const metadata = {
-  title: "Add Product - Flowmazon",
+  title: "Adicionar Produto - Doce Mania",
 };
 
 async function addProduct(formData: FormData) {
@@ -59,7 +59,7 @@ export default async function AddProductPage() {
 
   return (
     <div className="w-full">
-      <h1 className="mb-3 text-lg font-bold">Add Product</h1>
+      <h1 className="mb-3 text-lg font-bold">Adicionar Produto</h1>
 
       <form action={addProduct}>
         <input
@@ -67,29 +67,31 @@ export default async function AddProductPage() {
           className="input input-bordered mb-3 w-full"
           required
           name="name"
-          placeholder="Name"
+          placeholder="Nome do produto"
         />
         <textarea
           className="textarea textarea-bordered mb-3 w-full"
           required
           name="description"
-          placeholder="Description"
+          placeholder="Descrição do produto"
         />
         <input
           type="url"
           className="input input-bordered mb-3 w-full"
           required
           name="imageUrl"
-          placeholder="Image URL"
+          placeholder="URL da imagem do produto"
         />
         <input
           type="number"
           className="input input-bordered mb-3 w-full"
           required
           name="price"
-          placeholder="Price"
+          placeholder="Preço em centavos"
         />
-        <FormSubmitButton className="btn-block">Add Product</FormSubmitButton>
+        <FormSubmitButton className="btn-block">
+          Adicionar Produto
+        </FormSubmitButton>
       </form>
     </div>
   );
