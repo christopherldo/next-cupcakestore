@@ -12,14 +12,20 @@ export const metadata: Metadata = {
   description:
     "Delicie-se com nossa seleção irresistível de cupcakes artesanais feitos com os melhores ingredientes. Doce Mania – cupcakes que adoçam o seu dia!",
   openGraph: {
+    title: "Doce Mania - Loja de Cupcakes",
+    description:
+      "Delicie-se com nossa seleção irresistível de cupcakes artesanais feitos com os melhores ingredientes. Doce Mania – cupcakes que adoçam o seu dia!",
+    siteName: "Doce Mania",
     images: [
       {
-        url: "https://picsum.photos/1200/630",
+        url: "./opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "Imagem promocional da Doce Mania - Loja de Cupcakes",
       },
     ],
+    locale: "pt-BR",
+    type: "website",
   },
 };
 
