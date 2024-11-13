@@ -15,7 +15,15 @@ export default function CartEntry({
   cartItem: { product, quantity },
   setProductQuantity,
 }: CartEntryProps) {
-  const [isPending, startTranstion] = useTransition();
+  const [isPending, startTransition] = useTransition();
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity >= 0) {
+      startTransition(async () => {
+        await setProductQuantity(product.id, newQuantity);
+      });
+    }
+  };
 
   return (
     <div>
@@ -34,30 +42,23 @@ export default function CartEntry({
           <div className="mt-3">Preço: {formatPrice(product.price)}</div>
           <div className="my-1 flex items-center gap-2">
             Quantidade:
-            <select
-              className={"select select-bordered w-full max-w-[80px]"}
-              defaultValue={quantity}
-              disabled={isPending}
-              onChange={(e) => {
-                const newQuantity = parseInt(e.currentTarget.value);
-
-                startTranstion(async () => {
-                  await setProductQuantity(product.id, newQuantity);
-                });
-              }}
-            >
-              {Array.from(Array(100).keys()).map((item) => {
-                return item === 0 ? (
-                  <option value={item} key={item}>
-                    {item} (Remover)
-                  </option>
-                ) : (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
+            <div className="flex items-center gap-2">
+              <button
+                className="btn btn-outline btn-sm"
+                disabled={isPending || quantity <= 0}
+                onClick={() => handleQuantityChange(quantity - 1)}
+              >
+                -
+              </button>
+              <span>{quantity}</span>
+              <button
+                className="btn btn-outline btn-sm"
+                disabled={isPending}
+                onClick={() => handleQuantityChange(quantity + 1)}
+              >
+                +
+              </button>
+            </div>
           </div>
           <div
             className={`flex items-center gap-3 ${isPending && "opacity-50"}`}
