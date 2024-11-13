@@ -1,3 +1,4 @@
+import HeroBanner from "@/components/HeroBanner";
 import PaginationBar from "@/components/PaginationBar";
 import ProductCard from "@/components/ProductCard";
 import { prisma } from "@/lib/db/prisma";
@@ -32,6 +33,7 @@ export default async function Home({
 
   return (
     <div className="flex flex-col items-center">
+      {currentPage === 1 && <HeroBanner />}
       {currentPage === 1 && products[0] && (
         <div className="hero rounded-xl bg-base-200">
           <div className="hero-content flex-col lg:flex-row">
