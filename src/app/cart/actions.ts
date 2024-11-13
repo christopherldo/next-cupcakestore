@@ -60,3 +60,26 @@ export async function setProductQuantity(productId: string, quantity: number) {
 
   revalidatePath("/cart");
 }
+
+export async function clearManyProducts(productsIds: string[]) {
+  if (!productsIds || productsIds.length === 0) return;
+
+  const cart = (await getCart()) ?? (await createCart());
+
+  await prisma.cart.update({
+    where: {
+      id: cart.id,
+    },
+    data: {
+      items: {
+        deleteMany: {
+          productId: {
+            in: productsIds,
+          },
+        },
+      },
+    },
+  });
+
+  revalidatePath("/cart");
+}

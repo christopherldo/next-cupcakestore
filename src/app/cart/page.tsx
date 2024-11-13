@@ -1,7 +1,8 @@
 import { getCart } from "@/lib/db/cart";
-import CartEntry from "./CartEntry";
-import { setProductQuantity } from "./actions";
 import { formatPrice } from "@/lib/format";
+
+import { clearManyProducts, setProductQuantity } from "./actions";
+import Cart from "./Cart";
 
 export const metadata = {
   title: "Seu Carrinho - Doce Mania",
@@ -12,14 +13,11 @@ export default async function CartPage() {
 
   return (
     <div className="flex w-full flex-col justify-center">
-      <h1 className="mb-6 text-3xl font-bold">Carrinho</h1>
-      {cart?.items.map((cartItem) => (
-        <CartEntry
-          cartItem={cartItem}
-          key={cartItem.id}
-          setProductQuantity={setProductQuantity}
-        />
-      ))}
+      <Cart
+        cart={cart}
+        setProductQuantity={setProductQuantity}
+        clearManyProducts={clearManyProducts}
+      />
       {!cart?.items.length && <p>Seu carrinho está vazio.</p>}
       <div className="flex flex-col items-end sm:items-center">
         <p className="mb-3 font-bold">

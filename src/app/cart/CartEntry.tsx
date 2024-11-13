@@ -9,11 +9,15 @@ import { useTransition } from "react";
 interface CartEntryProps {
   cartItem: CartItemWithProduct;
   setProductQuantity: (productId: string, quantity: number) => Promise<void>;
+  handleSelectProduct: (productId: string) => void;
+  isSelected: boolean;
 }
 
 export default function CartEntry({
   cartItem: { product, quantity },
   setProductQuantity,
+  handleSelectProduct,
+  isSelected,
 }: CartEntryProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -27,14 +31,22 @@ export default function CartEntry({
 
   return (
     <div>
-      <div className="flex items-center gap-3">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          width={200}
-          height={200}
-          className="rounded-lg"
-        />
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            checked={isSelected}
+            onChange={() => handleSelectProduct(product.id)}
+            className="checkbox-primary checkbox rounded-full border-2"
+          />
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            width={200}
+            height={200}
+            className="w-full max-w-xs rounded-lg"
+          />
+        </div>
         <div>
           <Link href={`/products/${product.id}`} className="font-bold">
             {product.name}
@@ -44,17 +56,21 @@ export default function CartEntry({
             Quantidade:
             <div className="flex items-center gap-2">
               <button
-                className="btn btn-outline btn-sm"
-                disabled={isPending || quantity <= 0}
-                onClick={() => handleQuantityChange(quantity - 1)}
+                className="btn btn-xs"
+                onClick={() => {
+                  startTransition(() => handleQuantityChange(quantity - 1));
+                }}
+                disabled={isPending}
               >
                 -
               </button>
               <span>{quantity}</span>
               <button
-                className="btn btn-outline btn-sm"
+                className="btn btn-xs"
+                onClick={() => {
+                  startTransition(() => handleQuantityChange(quantity + 1));
+                }}
                 disabled={isPending}
-                onClick={() => handleQuantityChange(quantity + 1)}
               >
                 +
               </button>
