@@ -9,44 +9,24 @@ import { useTransition } from "react";
 interface CartEntryProps {
   cartItem: CartItemWithProduct;
   setProductQuantity: (productId: string, quantity: number) => Promise<void>;
-  handleSelectProduct: (productId: string) => void;
-  isSelected: boolean;
 }
 
 export default function CartEntry({
   cartItem: { product, quantity },
   setProductQuantity,
-  handleSelectProduct,
-  isSelected,
 }: CartEntryProps) {
-  const [isPending, startTransition] = useTransition();
-
-  const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity >= 0) {
-      startTransition(async () => {
-        await setProductQuantity(product.id, newQuantity);
-      });
-    }
-  };
+  const [isPending, startTranstion] = useTransition();
 
   return (
     <div>
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <div className="flex items-center gap-3">
-          <input
-            type="checkbox"
-            checked={isSelected}
-            onChange={() => handleSelectProduct(product.id)}
-            className="checkbox-primary checkbox rounded-full border-2"
-          />
-          <Image
-            src={product.imageUrl}
-            alt={product.name}
-            width={200}
-            height={200}
-            className="w-full max-w-xs rounded-lg"
-          />
-        </div>
+      <div className="flex items-center gap-3">
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          width={200}
+          height={200}
+          className="rounded-lg"
+        />
         <div>
           <Link href={`/products/${product.id}`} className="font-bold">
             {product.name}
@@ -54,27 +34,30 @@ export default function CartEntry({
           <div className="mt-3">Preço: {formatPrice(product.price)}</div>
           <div className="my-1 flex items-center gap-2">
             Quantidade:
-            <div className="flex items-center gap-2">
-              <button
-                className="btn btn-xs"
-                onClick={() => {
-                  startTransition(() => handleQuantityChange(quantity - 1));
-                }}
-                disabled={isPending}
-              >
-                -
-              </button>
-              <span>{quantity}</span>
-              <button
-                className="btn btn-xs"
-                onClick={() => {
-                  startTransition(() => handleQuantityChange(quantity + 1));
-                }}
-                disabled={isPending}
-              >
-                +
-              </button>
-            </div>
+            <select
+              className={"select select-bordered w-full max-w-[80px]"}
+              defaultValue={quantity}
+              disabled={isPending}
+              onChange={(e) => {
+                const newQuantity = parseInt(e.currentTarget.value);
+
+                startTranstion(async () => {
+                  await setProductQuantity(product.id, newQuantity);
+                });
+              }}
+            >
+              {Array.from(Array(100).keys()).map((item) => {
+                return item === 0 ? (
+                  <option value={item} key={item}>
+                    {item} (Remover)
+                  </option>
+                ) : (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div
             className={`flex items-center gap-3 ${isPending && "opacity-50"}`}

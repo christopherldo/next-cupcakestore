@@ -18,41 +18,24 @@ export type ShoppingCart = CartWithProducts & {
 };
 
 export async function getCart(): Promise<ShoppingCart | null> {
-  const session = await getServerSession(authOptions);
-
   let cart: CartWithProducts | null = null;
 
-  if (session) {
-    cart = await prisma.cart.findFirst({
-      where: {
-        userId: session.user.id,
-      },
-      include: {
-        items: {
-          include: {
-            product: true,
-          },
-        },
-      },
-    });
-  } else {
-    const localCartId = cookies().get("localCartId")?.value;
+  const localCartId = cookies().get("localCartId")?.value;
 
-    cart = localCartId
-      ? await prisma.cart.findUnique({
-          where: {
-            id: localCartId,
-          },
-          include: {
-            items: {
-              include: {
-                product: true,
-              },
+  cart = localCartId
+    ? await prisma.cart.findUnique({
+        where: {
+          id: localCartId,
+        },
+        include: {
+          items: {
+            include: {
+              product: true,
             },
           },
-        })
-      : null;
-  }
+        },
+      })
+    : null;
 
   if (!cart) return null;
 
